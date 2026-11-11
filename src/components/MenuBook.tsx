@@ -202,7 +202,7 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
                             )}
                           </div>
                           {item.note && (
-                            <p className="mt-0.5 text-[12px] leading-relaxed text-ink-soft/80 line-clamp-1">
+                            <p className="mt-1 text-[11.5px] sm:text-[12px] leading-snug text-ink-soft/80">
                               {item.note}
                             </p>
                           )}

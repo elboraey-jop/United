@@ -199,8 +199,8 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
                       className="group relative flex items-center justify-between gap-3 rounded-2xl bg-white/90 p-3 sm:p-3.5 text-right shadow-[0_2px_8px_-2px_rgba(58,13,20,0.04)] ring-1 ring-wine/10 transition-all duration-200 hover:bg-white hover:ring-gold/60 hover:shadow-[0_8px_20px_-4px_rgba(58,13,20,0.08)] active:scale-[0.99]"
                     >
                       <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                        {/* مصغرة صورة المنتج (بلايس هولدر دائري نظيف بدون برواز) */}
-                        <div className="relative grid h-10 w-10 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-full bg-[#f9f5ed] text-wine ring-1.5 ring-[#c6a15a]/70 shadow-2xs transition-transform duration-200 group-hover:scale-105">
+                        {/* مصغرة صورة المنتج (مستطيل طولي بأطراف دائرية) */}
+                        <div className="relative grid h-12 w-9 sm:h-14 sm:w-10 shrink-0 place-items-center rounded-xl bg-[#f9f5ed] text-wine ring-1.5 ring-[#c6a15a]/60 shadow-2xs transition-transform duration-200 group-hover:scale-105">
                           {isDrink ? <Coffee size={18} weight="fill" /> : <Cake size={18} weight="fill" />}
                         </div>
 

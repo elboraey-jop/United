@@ -25,7 +25,10 @@ export function HomeExperience() {
       if (!existing) return [...current, { ...draft, key }];
       return current.map((line) => (line.key === key ? { ...line, qty: line.qty + draft.qty } : line));
     });
-    setOpen(true);
+    // افتح السلة تلقائياً فقط على شاشات الديسكتوب، وفي التليفون يظهر الشريط العائم بالأسفل دون إزعاج
+    if (typeof window !== "undefined" && window.matchMedia("(min-width: 640px)").matches) {
+      setOpen(true);
+    }
   };
 
   return (

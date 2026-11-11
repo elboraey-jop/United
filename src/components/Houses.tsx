@@ -69,46 +69,53 @@ export function Houses() {
         </div>
       </section>
 
-      <section id="visit" className="scroll-mt-[calc(4rem+env(safe-area-inset-top,0px))] bg-wine-deep px-4 py-14 text-cream sm:py-20">
+      <section id="visit" className="scroll-mt-[calc(4rem+env(safe-area-inset-top,0px))] border-t border-gold/30 bg-cream px-4 py-14 text-ink sm:py-20">
         <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-end">
           <div>
-            <img src="/media/logo.jpg?v=2" alt="شعار يونايتد" className="h-28 w-28 rounded-md object-cover ring-1 ring-gold" />
-            <h2 className="mt-5 text-4xl font-bold sm:text-6xl">شرفنا بالزيارة أو اطلب دليفري</h2>
-            <p className="mt-3 max-w-md text-[15px] leading-8 text-white/70">
+            <div className="flex items-center gap-3.5 sm:block">
+              <img
+                src="/media/logo.jpg?v=2"
+                alt="شعار يونايتد"
+                className="h-20 w-20 shrink-0 rounded-2xl object-cover ring-1 ring-gold shadow-sm sm:h-28 sm:w-28 sm:rounded-md"
+              />
+              <h2 className="text-2xl font-bold leading-tight text-wine-deep sm:mt-5 sm:text-5xl md:text-6xl">
+                شرفنا بالزيارة أو اطلب دليفري
+              </h2>
+            </div>
+            <p className="mt-3 max-w-md text-[13.5px] leading-6 text-ink-soft sm:text-[15px] sm:leading-8">
               تقدر تطلب أوردرك دليفري تليفونياً أو عبر واتساب، ومتوفرين أيضاً على تطبيق عناب في سمنود.
             </p>
           </div>
           <div className="space-y-3">
-            {HOUSE.phones.map((phone) => (
-              <a
-                key={phone.raw}
-                href={`tel:${phone.raw}`}
-                className="flex h-14 items-center justify-between rounded-2xl border border-white/15 px-4"
-              >
-                <span className="flex items-center gap-2 text-gold-soft">
-                  <Phone size={18} />
-                  اتصل بنا
-                </span>
-                <span className="font-num text-lg font-bold tracking-wider" dir="ltr">
-                  {phone.pretty}
-                </span>
-              </a>
-            ))}
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+              {HOUSE.phones.map((phone) => (
+                <a
+                  key={phone.raw}
+                  href={`tel:${phone.raw}`}
+                  className="flex h-12 items-center justify-center gap-1.5 rounded-full border border-wine/15 bg-paper px-2 transition-colors hover:border-gold hover:bg-white sm:h-14 sm:gap-2 sm:px-4"
+                >
+                  <Phone size={16} className="shrink-0 text-wine" />
+                  <span className="font-num text-[12.5px] font-bold tracking-tight text-wine-deep sm:text-base sm:tracking-wider" dir="ltr">
+                    {phone.pretty}
+                  </span>
+                </a>
+              ))}
+            </div>
             <a
               href={`https://wa.me/${HOUSE.whatsapp}`}
               target="_blank"
               rel="noreferrer"
-              className="flex h-14 items-center justify-center gap-2 rounded-2xl bg-gold font-semibold text-wine-deep"
+              className="flex h-12 items-center justify-center gap-2 rounded-full bg-gold font-semibold text-wine-deep shadow-sm transition-all hover:bg-gold/90 hover:shadow sm:h-14"
             >
               <WhatsappLogo size={20} weight="fill" />
               اطلب عبر واتساب
             </a>
-            <div className="flex gap-2 pt-2">
+            <div className="flex justify-center gap-2 pt-2 sm:justify-start">
               <a
                 href="https://instagram.com/UnitedCaffeine"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-11 items-center gap-2 rounded-full border border-white/15 px-4 text-[13px]"
+                className="inline-flex h-11 items-center gap-2 rounded-full border border-wine/15 bg-paper px-4 text-[13px] text-wine transition-colors hover:border-wine/40 hover:bg-white hover:text-wine-deep"
               >
                 <InstagramLogo size={16} />
                 @UnitedCaffeine
@@ -118,7 +125,7 @@ export function Houses() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="تيك توك"
-                className="grid h-11 w-11 place-items-center rounded-full border border-white/15"
+                className="grid h-11 w-11 place-items-center rounded-full border border-wine/15 bg-paper text-wine transition-colors hover:border-wine/40 hover:bg-white hover:text-wine-deep"
               >
                 <TiktokLogo size={16} />
               </a>
@@ -127,16 +134,16 @@ export function Houses() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="فيسبوك"
-                className="grid h-11 w-11 place-items-center rounded-full border border-white/15"
+                className="grid h-11 w-11 place-items-center rounded-full border border-wine/15 bg-paper text-wine transition-colors hover:border-wine/40 hover:bg-white hover:text-wine-deep"
               >
                 <FacebookLogo size={16} />
               </a>
             </div>
           </div>
         </div>
-        <div className="mx-auto mt-12 flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-5 text-[12px] text-white/50">
+        <div className="mx-auto mt-12 flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-wine/10 pt-5 text-[12px] text-ink-soft">
           <span>© 2026 United Caffeine &amp; Dessert House</span>
-          <span className="font-latin tracking-[0.2em]">SAMANOUD</span>
+          <span className="font-latin tracking-[0.2em] text-wine/70">SAMANOUD</span>
         </div>
       </section>
     </>

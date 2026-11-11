@@ -16,7 +16,6 @@ export type DraftOrder = {
 export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
   const [category, setCategory] = useState<CategoryId>("coffee");
   const [subCategory, setSubCategory] = useState<string | null>(null);
-  const [query, setQuery] = useState("");
   const [draft, setDraft] = useState<MenuItem | null>(null);
   const stickyBarRef = useRef<HTMLDivElement | null>(null);
 
@@ -70,14 +69,12 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
   }, [category]);
 
   const visible = useMemo(() => {
-    const q = query.trim();
     return MENU_ITEMS.filter((item) => {
-      const inCategory = q ? true : item.category === category;
-      const inSubCategory = q || !subCategory ? true : item.group === subCategory;
-      const matches = !q || item.name.includes(q) || item.group.includes(q) || item.note?.includes(q);
-      return inCategory && inSubCategory && matches;
+      const inCategory = item.category === category;
+      const inSubCategory = !subCategory ? true : item.group === subCategory;
+      return inCategory && inSubCategory;
     });
-  }, [category, subCategory, query]);
+  }, [category, subCategory]);
 
   const groups = useMemo(() => {
     const map = new Map<string, MenuItem[]>();
@@ -90,33 +87,15 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
   }, [visible]);
 
   return (
-    <section id="menu" className="paper-rings relative scroll-mt-[calc(4rem+env(safe-area-inset-top,0px))] px-4 py-14 sm:py-20">
+    <section id="menu" className="paper-rings relative scroll-mt-[calc(4rem+env(safe-area-inset-top,0px))] px-4 pt-8 pb-14 sm:pt-12 sm:pb-20">
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="font-latin text-[11px] tracking-[0.28em] text-wine">OUR MENU</p>
-            <h2 className="mt-2 text-4xl font-bold text-wine-deep sm:text-5xl">قائمة المشروبات والحلويات</h2>
-            <p className="mt-3 max-w-md text-[15px] leading-8 text-ink-soft">
-              اختار مشروبك المفضل أو جرب حلوياتنا الطازة اليومية.
-            </p>
-          </div>
-          <p className="text-[12px] leading-6 text-ink-soft" dir="ltr">
-            S Small · M Medium · L Large · D Double
-          </p>
+        <div className="text-right">
+          <p className="font-latin text-[11px] tracking-[0.28em] text-wine">OUR MENU</p>
+          <h2 className="mt-1 text-4xl font-bold text-wine-deep sm:text-5xl">قائمة المشروبات والحلويات</h2>
         </div>
 
-        <label className="mt-6 block">
-          <span className="sr-only">ابحث في المنيو</span>
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="ابحث عن صنف: لاتيه، كريب، وافل، موكا..."
-            className="h-12 w-full rounded-full border border-wine/15 bg-white/70 px-5 text-[15px] outline-none placeholder:text-ink-soft/70 focus:border-gold"
-          />
-        </label>
-
         <div ref={stickyBarRef} aria-hidden className="h-0 w-0" />
-        <div className="sticky top-[calc(4rem+env(safe-area-inset-top))] z-30 -mx-4 mt-4 border-b border-wine/10 bg-[#f6f0e6]/95 px-4 py-3 backdrop-blur">
+        <div className="sticky top-[calc(4rem+env(safe-area-inset-top))] z-30 -mx-4 mt-6 border-b border-wine/10 bg-[#f6f0e6]/95 px-4 py-3 backdrop-blur">
           <div className="flex gap-2 overflow-x-auto hide-scroll pb-1">
             {categories.map((item) => (
               <button
@@ -125,11 +104,10 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
                 onClick={() => {
                   setCategory(item.id);
                   setSubCategory(null);
-                  setQuery("");
                   scrollToCategories();
                 }}
                 className={`h-10 shrink-0 rounded-full px-4 text-[14px] font-medium transition-colors ${
-                  !query && category === item.id
+                  category === item.id
                     ? "bg-wine text-gold-soft shadow-xs font-semibold"
                     : "bg-white/80 text-wine ring-1 ring-wine/10 hover:bg-white"
                 }`}
@@ -139,7 +117,7 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
             ))}
           </div>
 
-          {!query && availableSubCategories.length > 1 && (
+          {availableSubCategories.length > 1 && (
             <div className="mt-2.5 flex flex-wrap justify-center gap-1.5 border-t border-wine/10 pt-2">
               <button
                 type="button"
@@ -149,8 +127,8 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
                 }}
                 className={`h-8 shrink-0 rounded-full px-3 text-[12px] font-medium transition-colors ${
                   subCategory === null
-                    ? "bg-wine/10 text-wine ring-1 ring-wine/40 font-semibold"
-                    : "bg-transparent text-ink-soft ring-1 ring-wine/10 hover:text-wine hover:bg-white/60"
+                    ? "bg-wine text-gold-soft shadow-2xs font-semibold"
+                    : "bg-white/80 text-wine ring-1 ring-wine/10 hover:bg-white"
                 }`}
               >
                 الكل
@@ -165,8 +143,8 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
                   }}
                   className={`h-8 shrink-0 rounded-full px-3 text-[12px] font-medium transition-colors ${
                     subCategory === group
-                      ? "bg-wine/10 text-wine ring-1 ring-wine/40 font-semibold"
-                      : "bg-transparent text-ink-soft ring-1 ring-wine/10 hover:text-wine hover:bg-white/60"
+                      ? "bg-wine text-gold-soft shadow-2xs font-semibold"
+                      : "bg-white/80 text-wine ring-1 ring-wine/10 hover:bg-white"
                   }`}
                 >
                   {group}
@@ -192,11 +170,18 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
                     item.category === "cocoa";
 
                   return (
-                    <button
+                    <div
                       key={item.id}
-                      type="button"
+                      role="button"
+                      tabIndex={0}
                       onClick={() => setDraft(item)}
-                      className="group relative flex items-center justify-between gap-3 rounded-2xl bg-white/90 p-3 sm:p-3.5 text-right shadow-[0_2px_8px_-2px_rgba(58,13,20,0.04)] ring-1 ring-wine/10 transition-all duration-200 hover:bg-white hover:ring-gold/60 hover:shadow-[0_8px_20px_-4px_rgba(58,13,20,0.08)] active:scale-[0.99]"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setDraft(item);
+                        }
+                      }}
+                      className="group relative flex items-center justify-between gap-3 rounded-2xl bg-white/90 p-3 sm:p-3.5 text-right shadow-[0_2px_8px_-2px_rgba(58,13,20,0.04)] ring-1 ring-wine/10 transition-all duration-200 hover:bg-white hover:ring-gold/60 hover:shadow-[0_8px_20px_-4px_rgba(58,13,20,0.08)] active:scale-[0.99] cursor-pointer select-none"
                     >
                       <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
                         {/* مصغرة صورة المنتج (مستطيل طولي بأطراف دائرية) */}
@@ -246,11 +231,19 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
                           ))}
                         </div>
 
-                        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-wine text-gold-soft shadow-xs ring-1 ring-gold/30 transition-all duration-200 group-hover:scale-105 group-hover:bg-wine-deep group-active:scale-95">
+                        <button
+                          type="button"
+                          aria-label={`إضافة ${item.name} إلى السلة`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onAdd({ item, size: item.sizes[0], qty: 1 });
+                          }}
+                          className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-wine text-gold-soft shadow-xs ring-1 ring-gold/30 transition-all duration-200 hover:scale-110 hover:bg-wine-deep active:scale-95"
+                        >
                           <Plus size={13} weight="bold" />
-                        </span>
+                        </button>
                       </div>
-                    </button>
+                    </div>
                   );
                 })}
               </div>
@@ -279,7 +272,37 @@ function Picker({
   const [sizeLabel, setSizeLabel] = useState("");
   const [option, setOption] = useState("");
   const [qty, setQty] = useState(1);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const carouselRef = useRef<HTMLDivElement | null>(null);
   const dragControls = useDragControls();
+
+  const scrollToSlide = (idx: number) => {
+    if (!carouselRef.current) return;
+    const items = carouselRef.current.querySelectorAll<HTMLElement>("[data-slide]");
+    if (items[idx]) {
+      items[idx].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      setActiveSlide(idx);
+    }
+  };
+
+  const handleScroll = () => {
+    if (!carouselRef.current) return;
+    const container = carouselRef.current;
+    const items = container.querySelectorAll<HTMLElement>("[data-slide]");
+    const containerCenter = container.getBoundingClientRect().left + container.offsetWidth / 2;
+    let closestIdx = 0;
+    let minDiff = Infinity;
+    items.forEach((itemEl, idx) => {
+      const rect = itemEl.getBoundingClientRect();
+      const itemCenter = rect.left + rect.width / 2;
+      const diff = Math.abs(containerCenter - itemCenter);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestIdx = idx;
+      }
+    });
+    setActiveSlide(closestIdx);
+  };
 
   const size = item?.sizes.find((entry) => entry.label === sizeLabel) ?? item?.sizes[0];
   const isDrink = item ? ["coffee", "tea", "cocoa", "cold"].includes(item.category) : false;
@@ -305,7 +328,7 @@ function Picker({
                 onClose();
               }
             }}
-            className="relative w-full max-w-md rounded-t-[28px] bg-[#f8f3eb] p-4 sm:p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-3xl"
+            className="relative w-full max-w-md max-h-[92dvh] overflow-y-auto rounded-t-[28px] bg-[#f8f3eb] p-4 sm:p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-3xl"
             data-lenis-prevent
           >
             {/* Grab handle for sheet */}
@@ -340,40 +363,34 @@ function Picker({
 
             {/* 3 Swipeable Image Placeholders (Vintage Frame) */}
             <div className="mt-2.5">
-              <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto hide-scroll pb-1 px-1 justify-center">
-                {[1, 2, 3].map((num) => (
+              <div
+                ref={carouselRef}
+                onScroll={handleScroll}
+                className="flex snap-x snap-mandatory gap-4 overflow-x-auto hide-scroll py-2 px-[calc(50%-102px)] sm:px-[calc(50%-118px)] items-center"
+              >
+                {[1, 2, 3].map((num, idx) => (
                   <div
                     key={num}
-                    className="group/frame relative aspect-[632/895] h-32 sm:h-40 shrink-0 snap-center transition-transform duration-200"
+                    data-slide
+                    onClick={() => scrollToSlide(idx)}
+                    className={`group/frame relative aspect-[632/895] h-72 sm:h-84 shrink-0 snap-center transition-all duration-300 cursor-pointer ${
+                      activeSlide === idx
+                        ? "scale-100 opacity-100 drop-shadow-[0_16px_24px_rgba(58,13,20,0.22)]"
+                        : "scale-90 opacity-55 drop-shadow-md"
+                    }`}
                   >
                     {/* Inner Artwork / Content Canvas (fits inside the frame window) */}
-                    <div className="absolute top-[15.2%] bottom-[15.8%] left-[18.8%] right-[18.8%] flex flex-col items-center justify-center bg-[#faf6ee] p-1.5 text-center overflow-hidden">
+                    <div className="absolute top-[15.2%] bottom-[15.8%] left-[18.8%] right-[18.8%] flex flex-col items-center justify-center bg-[#faf6ee] p-2 text-center overflow-hidden">
                       {/* Subtle vintage texture / lighting */}
                       <div className="absolute inset-0 bg-gradient-to-b from-[#fbf8f0] via-transparent to-[#f2e7d3]/70 pointer-events-none" />
 
                       {/* Inner gold hairline */}
-                      <div className="absolute inset-1 border border-[#c6a15a]/30 pointer-events-none" />
+                      <div className="absolute inset-1.5 border border-[#c6a15a]/30 pointer-events-none rounded-sm" />
 
-                      {/* Photo counter badge */}
-                      <span className="absolute top-1 left-1 rounded-full bg-[#f4ebd9]/95 px-1 py-0.5 font-latin text-[7px] font-bold text-wine-deep border border-[#c6a15a]/40 shadow-2xs">
-                        0{num}/03
-                      </span>
-
-                      {/* Icon Crest */}
-                      <div className="relative grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-full bg-white text-wine ring-1.5 ring-[#c6a15a] shadow-xs transition-transform group-hover/frame:scale-105">
-                        {isDrink ? <Coffee size={18} weight="fill" /> : <Cake size={18} weight="fill" />}
+                      {/* Icon Crest Only */}
+                      <div className="relative grid h-20 w-20 sm:h-24 sm:w-24 place-items-center rounded-full bg-white text-wine ring-2 ring-[#c6a15a] shadow-xs transition-transform group-hover/frame:scale-105">
+                        {isDrink ? <Coffee size={42} weight="fill" /> : <Cake size={42} weight="fill" />}
                       </div>
-
-                      {/* Labels */}
-                      <span className="relative mt-1 font-display text-[10px] sm:text-[11px] font-bold text-wine-deep text-center px-1 line-clamp-1">
-                        {item.group}
-                      </span>
-                      <span className="relative text-[9px] font-semibold text-wine line-clamp-1">
-                        {item.name}
-                      </span>
-                      <span className="relative mt-0.5 font-latin text-[6px] tracking-[0.18em] text-[#8d6728] font-bold">
-                        UNITED CAFFEINE
-                      </span>
                     </div>
 
                     {/* Clean Isolated Antique Gilded Picture Frame Overlay */}
@@ -387,10 +404,18 @@ function Picker({
               </div>
 
               {/* Swipe dots */}
-              <div className="flex justify-center gap-1.5 pt-1">
-                <span className="h-1.5 w-3.5 rounded-full bg-wine" />
-                <span className="h-1.5 w-1.5 rounded-full bg-wine/25" />
-                <span className="h-1.5 w-1.5 rounded-full bg-wine/25" />
+              <div className="flex justify-center items-center gap-1.5 pt-1.5">
+                {[0, 1, 2].map((idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => scrollToSlide(idx)}
+                    aria-label={`صورة ${idx + 1}`}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      activeSlide === idx ? "w-5 bg-wine" : "w-1.5 bg-wine/25 hover:bg-wine/40"
+                    }`}
+                  />
+                ))}
               </div>
             </div>
 

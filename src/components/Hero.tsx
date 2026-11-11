@@ -112,7 +112,7 @@ export function Hero() {
         <span aria-hidden className="gold-hairline block" />
       </section>
 
-      <section id="wall" className="paper-rings relative scroll-mt-[calc(4rem+env(safe-area-inset-top,0px))] px-4 py-14 sm:py-20">
+      <section id="wall" className="paper-rings relative scroll-mt-[calc(4rem+env(safe-area-inset-top,0px))] px-4 pt-14 pb-8 sm:pt-20 sm:pb-12">
         <div className="mx-auto max-w-6xl">
           <p className="font-latin text-[11px] tracking-[0.28em] text-wine">ATMOSPHERE</p>
           <h2 className="mt-2 text-4xl font-bold text-wine-deep sm:text-5xl">أجواء المكان</h2>
@@ -147,6 +147,9 @@ export function Hero() {
               </figure>
             ))}
           </div>
+        </div>
+        <div className="mx-auto max-w-4xl px-4 mt-8 sm:mt-12">
+          <span aria-hidden className="gold-hairline block" />
         </div>
       </section>
     </>

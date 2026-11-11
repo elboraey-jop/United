@@ -199,17 +199,9 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
                       className="group relative flex items-center justify-between gap-3 rounded-2xl bg-white/90 p-3 sm:p-3.5 text-right shadow-[0_2px_8px_-2px_rgba(58,13,20,0.04)] ring-1 ring-wine/10 transition-all duration-200 hover:bg-white hover:ring-gold/60 hover:shadow-[0_8px_20px_-4px_rgba(58,13,20,0.08)] active:scale-[0.99]"
                     >
                       <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                        {/* مصغرة صورة المنتج بالبرواز المذهب والبلايس هولدر */}
-                        <div className="relative h-12 w-12 sm:h-14 sm:w-14 shrink-0 overflow-hidden rounded-xl bg-gradient-to-b from-[#f9f5ed] to-[#eee2cd] flex items-center justify-center border border-[#c6a15a]/40 shadow-xs group-hover:border-[#c6a15a] transition-colors">
-                          <div className="relative grid h-6 w-6 sm:h-7 sm:w-7 place-items-center rounded-full bg-white text-wine ring-1 ring-[#c6a15a] shadow-2xs">
-                            {isDrink ? <Coffee size={14} weight="fill" /> : <Cake size={14} weight="fill" />}
-                          </div>
-                          <img
-                            src="/media/rococo-gold-frame-clean.png"
-                            alt=""
-                            aria-hidden
-                            className="pointer-events-none absolute inset-0 h-full w-full object-fill select-none"
-                          />
+                        {/* مصغرة صورة المنتج (بلايس هولدر دائري نظيف بدون برواز) */}
+                        <div className="relative grid h-10 w-10 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-full bg-[#f9f5ed] text-wine ring-1.5 ring-[#c6a15a]/70 shadow-2xs transition-transform duration-200 group-hover:scale-105">
+                          {isDrink ? <Coffee size={18} weight="fill" /> : <Cake size={18} weight="fill" />}
                         </div>
 
                         <div className="min-w-0 flex-1">

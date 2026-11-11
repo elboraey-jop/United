@@ -236,7 +236,12 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
                           aria-label={`إضافة ${item.name} إلى السلة`}
                           onClick={(e) => {
                             e.stopPropagation();
-                            onAdd({ item, size: item.sizes[0], qty: 1 });
+                            const hasChoices = item.sizes.length > 1 || Boolean(item.options && item.options.length > 0);
+                            if (hasChoices) {
+                              setDraft(item);
+                            } else {
+                              onAdd({ item, size: item.sizes[0], qty: 1 });
+                            }
                           }}
                           className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-wine text-gold-soft shadow-xs ring-1 ring-gold/30 transition-all duration-200 hover:scale-110 hover:bg-wine-deep active:scale-95"
                         >

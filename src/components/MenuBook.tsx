@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { Cake, Coffee, Minus, Plus, Star, X } from "@phosphor-icons/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { categories, MENU_ITEMS, type CategoryId, type CupSize, type MenuItem } from "@/data/menu";
 import { formatPrice } from "@/lib/utils";
 
@@ -279,6 +279,7 @@ function Picker({
   const [sizeLabel, setSizeLabel] = useState("");
   const [option, setOption] = useState("");
   const [qty, setQty] = useState(1);
+  const dragControls = useDragControls();
 
   const size = item?.sizes.find((entry) => entry.label === sizeLabel) ?? item?.sizes[0];
   const isDrink = item ? ["coffee", "tea", "cocoa", "cold"].includes(item.category) : false;
@@ -293,17 +294,36 @@ function Picker({
             aria-label={item.name}
             initial={{ y: 40 }}
             animate={{ y: 0 }}
-            exit={{ y: 40 }}
+            exit={{ y: "100%" }}
+            drag="y"
+            dragControls={dragControls}
+            dragListener={false}
+            dragConstraints={{ top: 0 }}
+            dragElastic={{ top: 0, bottom: 0.6 }}
+            onDragEnd={(_event, info) => {
+              if (info.offset.y > 75 || info.velocity.y > 300) {
+                onClose();
+              }
+            }}
             className="relative w-full max-w-md rounded-t-[28px] bg-[#f8f3eb] p-4 sm:p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-3xl"
             data-lenis-prevent
           >
             {/* Grab handle for sheet */}
-            <div className="pt-0.5 pb-1.5 flex justify-center sm:hidden">
-              <span className="h-1.5 w-11 rounded-full bg-wine/20" />
+            <div
+              onPointerDown={(e) => dragControls.start(e)}
+              className="pt-0.5 pb-2 flex justify-center sm:hidden cursor-grab active:cursor-grabbing touch-none select-none"
+            >
+              <span className="h-1.5 w-12 rounded-full bg-wine/25" />
             </div>
 
             {/* Header: Group (Large) & Name (Small) + Close Button */}
-            <div className="flex items-start justify-between gap-3 text-right">
+            <div
+              onPointerDown={(e) => {
+                if ((e.target as HTMLElement).closest("button")) return;
+                dragControls.start(e);
+              }}
+              className="flex items-start justify-between gap-3 text-right cursor-grab active:cursor-grabbing sm:cursor-auto touch-none select-none"
+            >
               <div>
                 <h3 className="font-display text-xl sm:text-2xl font-bold leading-tight text-wine-deep">{item.group}</h3>
                 <p className="mt-0.5 text-[13px] sm:text-[14px] font-semibold text-wine">{item.name}</p>

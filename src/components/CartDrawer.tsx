@@ -15,7 +15,7 @@ import {
   PaperPlaneTilt,
   CheckCircle,
 } from "@phosphor-icons/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { HOUSE } from "@/data/menu";
 import { SAMANOUD_AREAS, type DeliveryArea } from "@/data/deliveryAreas";
 import { DeliveryAreaSelect } from "./DeliveryAreaSelect";
@@ -41,6 +41,7 @@ export function CartDrawer({
   onRemove: (key: string) => void;
   onClearCart?: () => void;
 }) {
+  const dragControls = useDragControls();
   const [orderType, setOrderType] = useState<"delivery" | "takeaway">("delivery");
   const [branch, setBranch] = useState(branches[0]);
   const [customerName, setCustomerName] = useState("");
@@ -159,17 +160,36 @@ export function CartDrawer({
             aria-label="سلة الطلبات"
             initial={{ y: 48 }}
             animate={{ y: 0 }}
-            exit={{ y: 48 }}
+            exit={{ y: "100%" }}
+            drag="y"
+            dragControls={dragControls}
+            dragListener={false}
+            dragConstraints={{ top: 0 }}
+            dragElastic={{ top: 0, bottom: 0.6 }}
+            onDragEnd={(_e, info) => {
+              if (info.offset.y > 75 || info.velocity.y > 300) {
+                onClose();
+              }
+            }}
             className="relative flex max-h-[94svh] w-full flex-col rounded-t-[32px] overflow-hidden bg-[#f8f3eb] shadow-2xl sm:max-h-none sm:w-[440px] sm:rounded-none"
             data-lenis-prevent
           >
             {/* Grab handle for bottom sheet */}
-            <div className="pt-2.5 pb-0.5 flex justify-center sm:hidden bg-[#f8f3eb]">
-              <span className="h-1.5 w-11 rounded-full bg-wine/20" />
+            <div
+              onPointerDown={(e) => dragControls.start(e)}
+              className="pt-2.5 pb-1 flex justify-center sm:hidden bg-[#f8f3eb] cursor-grab active:cursor-grabbing touch-none select-none"
+            >
+              <span className="h-1.5 w-12 rounded-full bg-wine/25" />
             </div>
 
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-3 border-b border-wine/10 bg-[#f8f3eb]">
+            <div
+              onPointerDown={(e) => {
+                if ((e.target as HTMLElement).closest("button")) return;
+                dragControls.start(e);
+              }}
+              className="flex items-center justify-between px-5 py-3 border-b border-wine/10 bg-[#f8f3eb] cursor-grab active:cursor-grabbing sm:cursor-auto touch-none select-none"
+            >
               <div>
                 <p className="font-latin text-[11px] tracking-[0.22em] text-wine">YOUR ORDER</p>
                 <h2 className="text-2xl sm:text-3xl font-bold text-wine-deep">سلة الطلبات</h2>
@@ -415,7 +435,7 @@ export function CartDrawer({
                     {/* 2. Takeaway Recipient Details (Flush & attached) */}
                     {orderType === "takeaway" && (
                       <div className="space-y-1.5 text-right">
-                        <span className="text-[11px] font-bold text-wine-deep font-display">بيانات المستلم (اختياري)</span>
+                        <span className="text-[11px] font-bold text-wine-deep font-display">بيانات المستلم</span>
                         <div className="grid grid-cols-2 gap-2">
                           <div className="relative">
                             <input

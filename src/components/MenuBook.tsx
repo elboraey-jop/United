@@ -184,60 +184,83 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
                 <span className="gold-hairline flex-1" />
               </div>
               <div className="grid gap-2.5 sm:grid-cols-2">
-                {list.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setDraft(item)}
-                    className="group relative flex items-center justify-between gap-3 rounded-2xl bg-white/90 p-3.5 sm:p-4 text-right shadow-[0_2px_8px_-2px_rgba(58,13,20,0.04)] ring-1 ring-wine/10 transition-all duration-200 hover:bg-white hover:ring-gold/60 hover:shadow-[0_8px_20px_-4px_rgba(58,13,20,0.08)] active:scale-[0.99]"
-                  >
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-wrap items-center gap-1.5">
-                        <span className="font-display text-[16px] sm:text-[17px] font-bold leading-snug text-wine-deep transition-colors duration-200 group-hover:text-wine">
-                          {item.name}
-                        </span>
-                        {item.signature && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-gold/15 px-2 py-0.5 text-[10px] font-semibold text-wine-deep ring-1 ring-gold/40">
-                            <Star size={10} weight="fill" className="text-gold" />
-                            سبيشال
-                          </span>
-                        )}
-                      </div>
-                      {item.note && (
-                        <p className="mt-1 text-[12px] leading-relaxed text-ink-soft/80 line-clamp-1">
-                          {item.note}
-                        </p>
-                      )}
-                    </div>
+                {list.map((item) => {
+                  const isDrink =
+                    item.category === "coffee" ||
+                    item.category === "tea" ||
+                    item.category === "cold" ||
+                    item.category === "cocoa";
 
-                    <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
-                      <div className="flex items-center rounded-xl bg-wine/[0.035] px-2.5 py-1.5 ring-1 ring-wine/10 transition-colors group-hover:bg-wine/[0.06] group-hover:ring-wine/20">
-                        {item.sizes.map((size, index) => (
-                          <div
-                            key={`${item.id}-${size.label || index}`}
-                            className={`flex flex-col items-center px-1.5 min-w-[2rem] text-center ${
-                              index > 0 ? "border-s border-wine/10" : ""
-                            }`}
-                          >
-                            {size.label && (
-                              <span className="font-latin text-[9px] font-semibold tracking-wider text-wine/60">
-                                {size.label}
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setDraft(item)}
+                      className="group relative flex items-center justify-between gap-3 rounded-2xl bg-white/90 p-3 sm:p-3.5 text-right shadow-[0_2px_8px_-2px_rgba(58,13,20,0.04)] ring-1 ring-wine/10 transition-all duration-200 hover:bg-white hover:ring-gold/60 hover:shadow-[0_8px_20px_-4px_rgba(58,13,20,0.08)] active:scale-[0.99]"
+                    >
+                      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                        {/* مصغرة صورة المنتج بالبرواز المذهب والبلايس هولدر */}
+                        <div className="relative h-12 w-12 sm:h-14 sm:w-14 shrink-0 overflow-hidden rounded-xl bg-gradient-to-b from-[#f9f5ed] to-[#eee2cd] flex items-center justify-center border border-[#c6a15a]/40 shadow-xs group-hover:border-[#c6a15a] transition-colors">
+                          <div className="relative grid h-6 w-6 sm:h-7 sm:w-7 place-items-center rounded-full bg-white text-wine ring-1 ring-[#c6a15a] shadow-2xs">
+                            {isDrink ? <Coffee size={14} weight="fill" /> : <Cake size={14} weight="fill" />}
+                          </div>
+                          <img
+                            src="/media/rococo-gold-frame-clean.png"
+                            alt=""
+                            aria-hidden
+                            className="pointer-events-none absolute inset-0 h-full w-full object-fill select-none"
+                          />
+                        </div>
+
+                        <div className="min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-1.5">
+                            <span className="font-display text-[15px] sm:text-[16px] font-bold leading-snug text-wine-deep transition-colors duration-200 group-hover:text-wine">
+                              {item.name}
+                            </span>
+                            {item.signature && (
+                              <span className="inline-flex items-center gap-1 rounded-full bg-gold/15 px-2 py-0.5 text-[10px] font-semibold text-wine-deep ring-1 ring-gold/40">
+                                <Star size={10} weight="fill" className="text-gold" />
+                                سبيشال
                               </span>
                             )}
-                            <span className="font-num text-[15px] sm:text-[16px] font-bold leading-tight text-wine-deep">
-                              {formatPrice(size.price)}
-                              <span className="font-normal text-[10px] text-wine/50 ms-0.5">ج</span>
-                            </span>
                           </div>
-                        ))}
+                          {item.note && (
+                            <p className="mt-0.5 text-[12px] leading-relaxed text-ink-soft/80 line-clamp-1">
+                              {item.note}
+                            </p>
+                          )}
+                        </div>
                       </div>
 
-                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-wine text-gold-soft shadow-xs ring-1 ring-gold/30 transition-all duration-200 group-hover:scale-105 group-hover:bg-wine-deep group-active:scale-95">
-                        <Plus size={13} weight="bold" />
-                      </span>
-                    </div>
-                  </button>
-                ))}
+                      <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
+                        <div className="flex items-center rounded-xl bg-wine/[0.035] px-2.5 py-1.5 ring-1 ring-wine/10 transition-colors group-hover:bg-wine/[0.06] group-hover:ring-wine/20">
+                          {item.sizes.map((size, index) => (
+                            <div
+                              key={`${item.id}-${size.label || index}`}
+                              className={`flex flex-col items-center px-1.5 min-w-[2rem] text-center ${
+                                index > 0 ? "border-s border-wine/10" : ""
+                              }`}
+                            >
+                              {size.label && (
+                                <span className="font-latin text-[9px] font-semibold tracking-wider text-wine/60">
+                                  {size.label}
+                                </span>
+                              )}
+                              <span className="font-num text-[15px] sm:text-[16px] font-bold leading-tight text-wine-deep">
+                                {formatPrice(size.price)}
+                                <span className="font-normal text-[10px] text-wine/50 ms-0.5">ج</span>
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-wine text-gold-soft shadow-xs ring-1 ring-gold/30 transition-all duration-200 group-hover:scale-105 group-hover:bg-wine-deep group-active:scale-95">
+                          <Plus size={13} weight="bold" />
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           ))}

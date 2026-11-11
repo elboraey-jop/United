@@ -5,10 +5,9 @@ import { List, ShoppingBag, X } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const links = [
-  { href: "#house", label: "عن يونايتد" },
+  { href: "#wall", label: "الصور" },
   { href: "#menu", label: "المنيو" },
   { href: "#branches", label: "فروعنا" },
-  { href: "#wall", label: "الصور" },
   { href: "#visit", label: "تواصل معنا" },
 ];
 

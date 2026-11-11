@@ -153,7 +153,7 @@ const seals = [
     text: "نفس الطعم والمستوى اللي اتعودت عليه من أول يوم.",
   },
   {
-    src: "/media/logo.jpg?v=2",
+    src: "/media/atmosphere-seal.jpg",
     title: "أجواء مميزة",
     text: "مكان مريح ورايق يجمعك بأصحابك وحبايبك في أي وقت.",
   },

@@ -118,7 +118,7 @@ export function Houses() {
         </div>
       </section>
 
-      <section id="visit" className="scroll-mt-[calc(4rem+env(safe-area-inset-top,0px))] bg-ink px-4 py-14 text-cream sm:py-20">
+      <section id="visit" className="scroll-mt-[calc(4rem+env(safe-area-inset-top,0px))] bg-wine-deep px-4 py-14 text-cream sm:py-20">
         <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-end">
           <div>
             <img src="/media/logo.jpg?v=2" alt="شعار يونايتد" className="h-28 w-28 rounded-md object-cover ring-1 ring-gold" />

@@ -225,7 +225,7 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
                       </div>
 
                       <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
-                        <div className="flex items-center rounded-xl bg-wine/[0.035] px-2.5 py-1.5 ring-1 ring-wine/10 transition-colors group-hover:bg-wine/[0.06] group-hover:ring-wine/20">
+                        <div className="flex items-center rounded-full bg-wine/[0.035] px-3 py-1.5 ring-1 ring-wine/10 transition-colors group-hover:bg-wine/[0.06] group-hover:ring-wine/20">
                           {item.sizes.map((size, index) => (
                             <div
                               key={`${item.id}-${size.label || index}`}
@@ -294,40 +294,40 @@ function Picker({
             initial={{ y: 40 }}
             animate={{ y: 0 }}
             exit={{ y: 40 }}
-            className="relative w-full max-w-md max-h-[92svh] overflow-y-auto rounded-t-[32px] bg-[#f8f3eb] p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-3xl"
+            className="relative w-full max-w-md rounded-t-[28px] bg-[#f8f3eb] p-4 sm:p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-3xl"
             data-lenis-prevent
           >
             {/* Grab handle for sheet */}
-            <div className="pt-0.5 pb-2 flex justify-center sm:hidden">
+            <div className="pt-0.5 pb-1.5 flex justify-center sm:hidden">
               <span className="h-1.5 w-11 rounded-full bg-wine/20" />
             </div>
 
             {/* Header: Group (Large) & Name (Small) + Close Button */}
             <div className="flex items-start justify-between gap-3 text-right">
               <div>
-                <h3 className="font-display text-2xl font-bold leading-tight text-wine-deep">{item.group}</h3>
-                <p className="mt-0.5 text-[14px] font-semibold text-wine">{item.name}</p>
+                <h3 className="font-display text-xl sm:text-2xl font-bold leading-tight text-wine-deep">{item.group}</h3>
+                <p className="mt-0.5 text-[13px] sm:text-[14px] font-semibold text-wine">{item.name}</p>
               </div>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="إغلاق"
-                className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-wine/15 text-wine/70 hover:text-wine hover:border-wine/30 transition-colors bg-white/60"
+                className="grid h-8 w-8 sm:h-9 sm:w-9 shrink-0 place-items-center rounded-full border border-wine/15 text-wine/70 hover:text-wine hover:border-wine/30 transition-colors bg-white/60"
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
 
-            {/* 3 Large Swipeable Image Placeholders (Real Vintage Frame) */}
-            <div className="mt-3.5">
-              <div className="flex snap-x snap-mandatory gap-3.5 overflow-x-auto hide-scroll pb-2 px-1">
+            {/* 3 Swipeable Image Placeholders (Vintage Frame) */}
+            <div className="mt-2.5">
+              <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto hide-scroll pb-1 px-1 justify-center">
                 {[1, 2, 3].map((num) => (
                   <div
                     key={num}
-                    className="group/frame relative aspect-[632/895] w-[62%] sm:w-[50%] shrink-0 snap-center transition-transform duration-200"
+                    className="group/frame relative aspect-[632/895] h-32 sm:h-40 shrink-0 snap-center transition-transform duration-200"
                   >
                     {/* Inner Artwork / Content Canvas (fits inside the frame window) */}
-                    <div className="absolute top-[15.2%] bottom-[15.8%] left-[18.8%] right-[18.8%] flex flex-col items-center justify-center bg-[#faf6ee] p-2 text-center overflow-hidden">
+                    <div className="absolute top-[15.2%] bottom-[15.8%] left-[18.8%] right-[18.8%] flex flex-col items-center justify-center bg-[#faf6ee] p-1.5 text-center overflow-hidden">
                       {/* Subtle vintage texture / lighting */}
                       <div className="absolute inset-0 bg-gradient-to-b from-[#fbf8f0] via-transparent to-[#f2e7d3]/70 pointer-events-none" />
 
@@ -335,23 +335,23 @@ function Picker({
                       <div className="absolute inset-1 border border-[#c6a15a]/30 pointer-events-none" />
 
                       {/* Photo counter badge */}
-                      <span className="absolute top-1 left-1 rounded-full bg-[#f4ebd9]/95 px-1.5 py-0.5 font-latin text-[8px] font-bold text-wine-deep border border-[#c6a15a]/40 shadow-2xs">
+                      <span className="absolute top-1 left-1 rounded-full bg-[#f4ebd9]/95 px-1 py-0.5 font-latin text-[7px] font-bold text-wine-deep border border-[#c6a15a]/40 shadow-2xs">
                         0{num}/03
                       </span>
 
                       {/* Icon Crest */}
-                      <div className="relative grid h-12 w-12 place-items-center rounded-full bg-white text-wine ring-2 ring-[#c6a15a] shadow-[0_2px_8px_rgba(198,161,90,0.3)] transition-transform group-hover/frame:scale-105">
-                        {isDrink ? <Coffee size={24} weight="fill" /> : <Cake size={24} weight="fill" />}
+                      <div className="relative grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-full bg-white text-wine ring-1.5 ring-[#c6a15a] shadow-xs transition-transform group-hover/frame:scale-105">
+                        {isDrink ? <Coffee size={18} weight="fill" /> : <Cake size={18} weight="fill" />}
                       </div>
 
                       {/* Labels */}
-                      <span className="relative mt-1.5 font-display text-[12px] font-bold text-wine-deep text-center px-1 line-clamp-1">
+                      <span className="relative mt-1 font-display text-[10px] sm:text-[11px] font-bold text-wine-deep text-center px-1 line-clamp-1">
                         {item.group}
                       </span>
-                      <span className="relative text-[10px] font-semibold text-wine">
+                      <span className="relative text-[9px] font-semibold text-wine line-clamp-1">
                         {item.name}
                       </span>
-                      <span className="relative mt-0.5 font-latin text-[7px] tracking-[0.2em] text-[#8d6728] font-bold">
+                      <span className="relative mt-0.5 font-latin text-[6px] tracking-[0.18em] text-[#8d6728] font-bold">
                         UNITED CAFFEINE
                       </span>
                     </div>
@@ -367,8 +367,8 @@ function Picker({
               </div>
 
               {/* Swipe dots */}
-              <div className="flex justify-center gap-1.5 pt-1.5">
-                <span className="h-1.5 w-4 rounded-full bg-wine" />
+              <div className="flex justify-center gap-1.5 pt-1">
+                <span className="h-1.5 w-3.5 rounded-full bg-wine" />
                 <span className="h-1.5 w-1.5 rounded-full bg-wine/25" />
                 <span className="h-1.5 w-1.5 rounded-full bg-wine/25" />
               </div>
@@ -376,11 +376,11 @@ function Picker({
 
             {/* Description (UNDER IMAGES) */}
             {item.note && (
-              <p className="mt-3 text-[13px] leading-6 text-ink-soft text-right">{item.note}</p>
+              <p className="mt-2 text-[12px] leading-relaxed text-ink-soft text-right">{item.note}</p>
             )}
 
             {item.sizes.length > 1 && (
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="mt-3 flex flex-wrap gap-1.5">
                 {item.sizes.map((entry) => {
                   const active = (sizeLabel || item.sizes[0].label) === entry.label;
                   return (
@@ -388,9 +388,9 @@ function Picker({
                       key={entry.label}
                       type="button"
                       onClick={() => setSizeLabel(entry.label)}
-                      className={`h-11 rounded-full px-4 text-[14px] ${active ? "bg-wine text-gold-soft" : "bg-white ring-1 ring-line"}`}
+                      className={`h-9 rounded-full px-3.5 text-[13px] ${active ? "bg-wine text-gold-soft font-semibold" : "bg-white ring-1 ring-line"}`}
                     >
-                      {entry.label} · <span className="font-num text-[16px] font-bold">{formatPrice(entry.price)}</span> ج
+                      {entry.label} · <span className="font-num text-[15px] font-bold">{formatPrice(entry.price)}</span> ج
                     </button>
                   );
                 })}
@@ -398,15 +398,15 @@ function Picker({
             )}
 
             {item.options && (
-              <div className="mt-4">
-                <p className="mb-2 text-[13px] text-ink-soft">{item.optionLabel}</p>
-                <div className="flex flex-wrap gap-2">
+              <div className="mt-2.5">
+                <p className="mb-1.5 text-[12px] text-ink-soft">{item.optionLabel}</p>
+                <div className="flex flex-wrap gap-1.5">
                   {item.options.map((entry) => (
                     <button
                       key={entry}
                       type="button"
                       onClick={() => setOption(entry)}
-                      className={`h-10 rounded-full px-3 text-[13px] ${option === entry ? "bg-gold text-wine-deep" : "bg-white ring-1 ring-line"}`}
+                      className={`h-9 rounded-full px-3 text-[12px] ${option === entry ? "bg-gold text-wine-deep font-semibold" : "bg-white ring-1 ring-line"}`}
                     >
                       {entry}
                     </button>
@@ -415,14 +415,14 @@ function Picker({
               </div>
             )}
 
-            <div className="mt-5 flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <button type="button" aria-label="تقليل" onClick={() => setQty((value) => Math.max(1, value - 1))} className="grid h-11 w-11 place-items-center rounded-full border border-line">
-                  <Minus size={16} />
+            <div className="mt-3.5 flex items-center justify-between gap-2.5">
+              <div className="flex items-center gap-2">
+                <button type="button" aria-label="تقليل" onClick={() => setQty((value) => Math.max(1, value - 1))} className="grid h-10 w-10 place-items-center rounded-full border border-line">
+                  <Minus size={15} />
                 </button>
-                <span className="font-num w-8 text-center text-xl font-bold">{qty}</span>
-                <button type="button" aria-label="زيادة" onClick={() => setQty((value) => value + 1)} className="grid h-11 w-11 place-items-center rounded-full border border-line">
-                  <Plus size={16} />
+                <span className="font-num w-7 text-center text-lg font-bold">{qty}</span>
+                <button type="button" aria-label="زيادة" onClick={() => setQty((value) => value + 1)} className="grid h-10 w-10 place-items-center rounded-full border border-line">
+                  <Plus size={15} />
                 </button>
               </div>
               <button
@@ -435,9 +435,9 @@ function Picker({
                   setSizeLabel("");
                   onClose();
                 }}
-                className="h-12 flex-1 rounded-full bg-wine text-[14px] font-semibold text-gold-soft disabled:opacity-40"
+                className="h-11 flex-1 rounded-full bg-wine text-[13px] sm:text-[14px] font-semibold text-gold-soft disabled:opacity-40"
               >
-                إضافة للطلب · <span className="font-num text-[17px] font-bold">{formatPrice(size.price * qty)}</span> ج
+                إضافة للطلب · <span className="font-num text-[16px] font-bold">{formatPrice(size.price * qty)}</span> ج
               </button>
             </div>
           </motion.div>

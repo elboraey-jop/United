@@ -90,20 +90,20 @@ export function Hero() {
             </div>
 
             {/* أزرار الدعوة للعمل (Call to Action Buttons) */}
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:mt-6 lg:justify-start">
+            <div className="mt-5 grid w-full max-w-md grid-cols-2 gap-2.5 sm:mt-6 sm:flex sm:w-auto sm:max-w-none sm:items-center sm:justify-center sm:gap-3 lg:justify-start">
               <a
                 href="#menu"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-wine-deep px-7 text-[13.5px] font-bold text-gold-soft shadow-md transition-all hover:bg-wine hover:shadow-lg active:scale-95"
+                className="inline-flex h-11 items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-wine-deep px-3 text-[12px] font-bold text-gold-soft shadow-md transition-all hover:bg-wine hover:shadow-lg active:scale-95 sm:gap-2 sm:px-7 sm:text-[13.5px]"
               >
                 تصفح المنيو الكامل
-                <ArrowLeft size={16} />
+                <ArrowLeft size={15} className="shrink-0 sm:h-4 sm:w-4" />
               </a>
 
               <a
                 href="#wall"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-wine/25 bg-white/60 px-6 text-[13px] font-semibold text-wine transition-all hover:border-wine hover:bg-white active:scale-95"
+                className="inline-flex h-11 items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-wine/25 bg-white/60 px-3 text-[12px] font-semibold text-wine transition-all hover:border-wine hover:bg-white active:scale-95 sm:gap-2 sm:px-6 sm:text-[13px]"
               >
-                <Coffee size={15} />
+                <Coffee size={15} className="shrink-0" />
                 أجواء المكان
               </a>
             </div>

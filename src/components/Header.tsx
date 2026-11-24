@@ -74,8 +74,8 @@ export function Header({
     <header
       className={`fixed inset-x-0 top-0 z-40 pt-[env(safe-area-inset-top)] transition-colors duration-300 ${
         solid || open
-          ? "header-weave weave-drift bg-cream/95 text-wine shadow-[0_1px_0_rgba(110,24,36,0.12)] backdrop-blur"
-          : "bg-transparent text-gold-soft"
+          ? "bg-[#faf6ee]/95 text-wine shadow-[0_1px_0_rgba(110,24,36,0.12)] backdrop-blur"
+          : "bg-[#faf6ee]/80 text-wine-deep backdrop-blur-xs"
       }`}
     >
       <span
@@ -98,7 +98,7 @@ export function Header({
           />
           <span className="leading-none">
             <span className="block font-latin text-[15px] tracking-[0.18em]">UNITED</span>
-            <span className={`mt-1 block font-latin text-[10px] tracking-[0.14em] md:text-[12px] ${solid || open ? "text-ink-soft" : "text-gold-soft/75"}`}>
+            <span className={`mt-1 block font-latin text-[10px] tracking-[0.14em] md:text-[12px] ${solid || open ? "text-ink-soft" : "text-wine/75"}`}>
               CAFFEINE &amp; DESSERT HOUSE
             </span>
           </span>
@@ -122,9 +122,7 @@ export function Header({
             type="button"
             onClick={onOpenCart}
             aria-label="عرض السلة"
-            className={`relative grid h-11 w-11 place-items-center rounded-full border ${
-              solid || open ? "border-wine/20" : "border-gold/40"
-            }`}
+            className="relative grid h-11 w-11 place-items-center rounded-full border border-wine/20 text-wine transition-all hover:bg-wine/5 active:scale-95"
           >
             <ShoppingBag size={20} />
             {count > 0 && (
@@ -135,9 +133,7 @@ export function Header({
           </button>
           <button
             type="button"
-            className={`grid h-11 w-11 place-items-center rounded-full border md:hidden ${
-              solid || open ? "border-wine/20" : "border-gold/40"
-            }`}
+            className="grid h-11 w-11 place-items-center rounded-full border border-wine/20 text-wine transition-all hover:bg-wine/5 active:scale-95 md:hidden"
             aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}
             onClick={() => setOpen((value) => !value)}
           >

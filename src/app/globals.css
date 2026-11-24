@@ -13,8 +13,8 @@
   --color-wine-bright: #8e2432;
   --color-gold: #c6a15a;
   --color-gold-soft: #ead7a6;
-  --color-cream: #f4efe6;
-  --color-paper: #f7f1e6;
+  --color-cream: #faf6ee;
+  --color-paper: #faf6ee;
   --color-line: rgba(110, 24, 36, 0.12);
 }
 
@@ -66,7 +66,7 @@ body {
 }
 
 .paper-rings {
-  background-color: #f6f0e6;
+  background-color: #faf6ee;
   background-image:
     radial-gradient(circle at 100% 0, transparent 0 14px, rgba(110, 24, 36, 0.045) 14px 15px, transparent 15px 32px),
     radial-gradient(circle at 0 100%, transparent 0 18px, rgba(198, 161, 90, 0.16) 18px 19px, transparent 19px 40px);

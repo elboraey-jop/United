@@ -5,6 +5,7 @@ import { Cake, Coffee, Minus, Plus, Star, X } from "@phosphor-icons/react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { categories, MENU_ITEMS, type CategoryId, type CupSize, type MenuItem } from "@/data/menu";
 import { formatPrice } from "@/lib/utils";
+import { WaveTop, WaveBottom } from "./WaveDivider";
 
 export type DraftOrder = {
   item: MenuItem;
@@ -87,178 +88,186 @@ export function MenuBook({ onAdd }: { onAdd: (draft: DraftOrder) => void }) {
   }, [visible]);
 
   return (
-    <section id="menu" className="paper-rings relative scroll-mt-[calc(4rem+env(safe-area-inset-top,0px))] px-4 pt-8 pb-14 sm:pt-12 sm:pb-20">
-      <div className="mx-auto max-w-6xl">
-        <div className="text-right">
-          <p className="font-latin text-[11px] tracking-[0.28em] text-wine">OUR MENU</p>
-          <h2 className="mt-1 text-4xl font-bold text-wine-deep sm:text-5xl">قائمة المشروبات والحلويات</h2>
-        </div>
+    <section id="menu" className="scroll-mt-[calc(4rem+env(safe-area-inset-top,0px))] bg-cream">
+      {/* موجة علوية تنقل من قسم أجواء المكان الفاتح إلى المنيو النبيتي */}
+      <WaveTop className="text-wine-deep bg-cream" />
 
-        <div ref={stickyBarRef} aria-hidden className="h-0 w-0" />
-        <div className="sticky top-[calc(4rem+env(safe-area-inset-top))] z-30 -mx-4 mt-6 border-b border-wine/10 bg-[#f6f0e6]/95 px-4 py-3 backdrop-blur">
-          <div className="flex gap-2 overflow-x-auto hide-scroll pb-1">
-            {categories.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => {
-                  setCategory(item.id);
-                  setSubCategory(null);
-                  scrollToCategories();
-                }}
-                className={`h-10 shrink-0 rounded-full px-4 text-[14px] font-medium transition-colors ${
-                  category === item.id
-                    ? "bg-wine text-gold-soft shadow-xs font-semibold"
-                    : "bg-white/80 text-wine ring-1 ring-wine/10 hover:bg-white"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+      <div className="bg-wine-deep px-4 pt-6 pb-14 text-cream sm:pt-10 sm:pb-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-right">
+            <p className="font-latin text-[11px] tracking-[0.28em] text-gold">OUR MENU</p>
+            <h2 className="mt-1 text-4xl font-bold text-gold-soft sm:text-5xl">قائمة المشروبات والحلويات</h2>
           </div>
 
-          {availableSubCategories.length > 1 && (
-            <div className="mt-2.5 flex flex-wrap justify-center gap-1.5 border-t border-wine/10 pt-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setSubCategory(null);
-                  scrollToCategories();
-                }}
-                className={`h-8 shrink-0 rounded-full px-3 text-[12px] font-medium transition-colors ${
-                  subCategory === null
-                    ? "bg-wine text-gold-soft shadow-2xs font-semibold"
-                    : "bg-white/80 text-wine ring-1 ring-wine/10 hover:bg-white"
-                }`}
-              >
-                الكل
-              </button>
-              {availableSubCategories.map((group) => (
+          <div ref={stickyBarRef} aria-hidden className="h-0 w-0" />
+          <div className="sticky top-[calc(4rem+env(safe-area-inset-top))] z-30 -mx-4 mt-6 border-b border-gold/20 bg-wine-deep/95 px-4 py-3 backdrop-blur">
+            <div className="flex gap-2 overflow-x-auto hide-scroll pb-1">
+              {categories.map((item) => (
                 <button
-                  key={group}
+                  key={item.id}
                   type="button"
                   onClick={() => {
-                    setSubCategory(group);
+                    setCategory(item.id);
+                    setSubCategory(null);
                     scrollToCategories();
                   }}
-                  className={`h-8 shrink-0 rounded-full px-3 text-[12px] font-medium transition-colors ${
-                    subCategory === group
-                      ? "bg-wine text-gold-soft shadow-2xs font-semibold"
-                      : "bg-white/80 text-wine ring-1 ring-wine/10 hover:bg-white"
+                  className={`h-10 shrink-0 rounded-full px-4 text-[14px] font-medium transition-colors ${
+                    category === item.id
+                      ? "bg-gold text-wine-deep font-semibold shadow-xs"
+                      : "bg-wine/60 text-cream/90 ring-1 ring-gold/25 hover:bg-wine hover:text-white"
                   }`}
                 >
-                  {group}
+                  {item.label}
                 </button>
               ))}
             </div>
-          )}
-        </div>
 
-        <div className="mt-2 space-y-8">
-          {groups.map(([group, list]) => (
-            <div key={group}>
-              <div className="mb-3 flex items-center gap-3">
-                <h3 className="rounded-full bg-gold px-3 py-1 text-[13px] font-semibold text-wine-deep">{group}</h3>
-                <span className="gold-hairline flex-1" />
+            {availableSubCategories.length > 1 && (
+              <div className="mt-2.5 flex flex-wrap justify-center gap-1.5 border-t border-gold/15 pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSubCategory(null);
+                    scrollToCategories();
+                  }}
+                  className={`h-8 shrink-0 rounded-full px-3.5 text-[12px] transition-all duration-200 ${
+                    subCategory === null
+                      ? "bg-wine-bright text-gold-soft font-bold ring-2 ring-gold shadow-md"
+                      : "bg-[#faf5ec] text-wine-deep font-semibold ring-1 ring-gold/40 hover:bg-white hover:shadow-xs"
+                  }`}
+                >
+                  الكل
+                </button>
+                {availableSubCategories.map((group) => (
+                  <button
+                    key={group}
+                    type="button"
+                    onClick={() => {
+                      setSubCategory(group);
+                      scrollToCategories();
+                    }}
+                    className={`h-8 shrink-0 rounded-full px-3.5 text-[12px] transition-all duration-200 ${
+                      subCategory === group
+                        ? "bg-wine-bright text-gold-soft font-bold ring-2 ring-gold shadow-md"
+                        : "bg-[#faf5ec] text-wine-deep font-semibold ring-1 ring-gold/40 hover:bg-white hover:shadow-xs"
+                    }`}
+                  >
+                    {group}
+                  </button>
+                ))}
               </div>
-              <div className="grid gap-2.5 sm:grid-cols-2">
-                {list.map((item) => {
-                  const isDrink =
-                    item.category === "coffee" ||
-                    item.category === "tea" ||
-                    item.category === "cold" ||
-                    item.category === "cocoa";
+            )}
+          </div>
 
-                  return (
-                    <div
-                      key={item.id}
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => setDraft(item)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          setDraft(item);
-                        }
-                      }}
-                      className="group relative flex items-center justify-between gap-3 rounded-2xl bg-white/90 p-3 sm:p-3.5 text-right shadow-[0_2px_8px_-2px_rgba(58,13,20,0.04)] ring-1 ring-wine/10 transition-all duration-200 hover:bg-white hover:ring-gold/60 hover:shadow-[0_8px_20px_-4px_rgba(58,13,20,0.08)] active:scale-[0.99] cursor-pointer select-none"
-                    >
-                      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                        {/* مصغرة صورة المنتج (مستطيل طولي بأطراف دائرية) */}
-                        <div className="relative grid h-12 w-9 sm:h-14 sm:w-10 shrink-0 place-items-center rounded-xl bg-[#f9f5ed] text-wine ring-1.5 ring-[#c6a15a]/60 shadow-2xs transition-transform duration-200 group-hover:scale-105">
-                          {isDrink ? <Coffee size={18} weight="fill" /> : <Cake size={18} weight="fill" />}
-                        </div>
+          <div className="mt-6 space-y-8">
+            {groups.map(([group, list]) => (
+              <div key={group}>
+                <div className="mb-3 flex items-center gap-3">
+                  <h3 className="rounded-full bg-gold px-3 py-1 text-[13px] font-semibold text-wine-deep">{group}</h3>
+                  <span className="gold-hairline flex-1" />
+                </div>
+                <div className="grid gap-2.5 sm:grid-cols-2">
+                  {list.map((item) => {
+                    const isDrink =
+                      item.category === "coffee" ||
+                      item.category === "tea" ||
+                      item.category === "cold" ||
+                      item.category === "cocoa";
 
-                        <div className="min-w-0 flex-1">
-                          <div className="flex flex-wrap items-center gap-1.5">
-                            <span className="font-display text-[15px] sm:text-[16px] font-bold leading-snug text-wine-deep transition-colors duration-200 group-hover:text-wine">
-                              {item.name}
-                            </span>
-                            {item.signature && (
-                              <span className="inline-flex items-center gap-1 rounded-full bg-gold/15 px-2 py-0.5 text-[10px] font-semibold text-wine-deep ring-1 ring-gold/40">
-                                <Star size={10} weight="fill" className="text-gold" />
-                                سبيشال
-                              </span>
-                            )}
+                    return (
+                      <div
+                        key={item.id}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => setDraft(item)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            setDraft(item);
+                          }
+                        }}
+                        className="group relative flex items-center justify-between gap-3 rounded-2xl bg-[#faf5ec] p-3 sm:p-3.5 text-right shadow-[0_4px_16px_rgba(0,0,0,0.2)] ring-1 ring-gold/40 transition-all duration-200 hover:bg-white hover:ring-gold hover:shadow-[0_8px_24px_rgba(0,0,0,0.28)] active:scale-[0.99] cursor-pointer select-none"
+                      >
+                        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                          {/* مصغرة صورة المنتج */}
+                          <div className="relative grid h-12 w-9 sm:h-14 sm:w-10 shrink-0 place-items-center rounded-xl bg-[#eee5d3] text-wine ring-1 ring-gold/60 shadow-2xs transition-transform duration-200 group-hover:scale-105">
+                            {isDrink ? <Coffee size={18} weight="fill" /> : <Cake size={18} weight="fill" />}
                           </div>
-                          {item.note && (
-                            <p className="mt-1 text-[11.5px] sm:text-[12px] leading-snug text-ink-soft/80">
-                              {item.note}
-                            </p>
-                          )}
-                        </div>
-                      </div>
 
-                      <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
-                        <div className="flex items-center rounded-full bg-wine/[0.035] px-3 py-1.5 ring-1 ring-wine/10 transition-colors group-hover:bg-wine/[0.06] group-hover:ring-wine/20">
-                          {item.sizes.map((size, index) => (
-                            <div
-                              key={`${item.id}-${size.label || index}`}
-                              className={`flex flex-col items-center px-1.5 min-w-[2rem] text-center ${
-                                index > 0 ? "border-s border-wine/10" : ""
-                              }`}
-                            >
-                              {size.label && (
-                                <span className="font-latin text-[9px] font-semibold tracking-wider text-wine/60">
-                                  {size.label}
+                          <div className="min-w-0 flex-1">
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              <span className="font-display text-[15px] sm:text-[16px] font-bold leading-snug text-wine-deep transition-colors duration-200 group-hover:text-wine">
+                                {item.name}
+                              </span>
+                              {item.signature && (
+                                <span className="inline-flex items-center gap-1 rounded-full bg-gold/20 px-2 py-0.5 text-[10px] font-semibold text-wine-deep ring-1 ring-gold/50">
+                                  <Star size={10} weight="fill" className="text-gold" />
+                                  سبيشال
                                 </span>
                               )}
-                              <span className="font-num text-[15px] sm:text-[16px] font-bold leading-tight text-wine-deep">
-                                {formatPrice(size.price)}
-                                <span className="font-normal text-[10px] text-wine/50 ms-0.5">ج</span>
-                              </span>
                             </div>
-                          ))}
+                            {item.note && (
+                              <p className="mt-1 text-[11.5px] sm:text-[12px] leading-snug text-ink-soft">
+                                {item.note}
+                              </p>
+                            )}
+                          </div>
                         </div>
 
-                        <button
-                          type="button"
-                          aria-label={`إضافة ${item.name} إلى السلة`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            const hasChoices = item.sizes.length > 1 || Boolean(item.options && item.options.length > 0);
-                            if (hasChoices) {
-                              setDraft(item);
-                            } else {
-                              onAdd({ item, size: item.sizes[0], qty: 1 });
-                            }
-                          }}
-                          className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-wine text-gold-soft shadow-xs ring-1 ring-gold/30 transition-all duration-200 hover:scale-110 hover:bg-wine-deep active:scale-95"
-                        >
-                          <Plus size={13} weight="bold" />
-                        </button>
+                        <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
+                          <div className="flex items-center rounded-full bg-wine/[0.05] px-3 py-1.5 ring-1 ring-wine/15 transition-colors group-hover:bg-wine/[0.08] group-hover:ring-wine/25">
+                            {item.sizes.map((size, index) => (
+                              <div
+                                key={`${item.id}-${size.label || index}`}
+                                className={`flex flex-col items-center px-1.5 min-w-[2rem] text-center ${
+                                  index > 0 ? "border-s border-wine/15" : ""
+                                }`}
+                              >
+                                {size.label && (
+                                  <span className="font-latin text-[9px] font-semibold tracking-wider text-wine/70">
+                                    {size.label}
+                                  </span>
+                                )}
+                                <span className="font-num text-[15px] sm:text-[16px] font-bold leading-tight text-wine-deep">
+                                  {formatPrice(size.price)}
+                                  <span className="font-normal text-[10px] text-wine/50 ms-0.5">ج</span>
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+
+                          <button
+                            type="button"
+                            aria-label={`إضافة ${item.name} إلى السلة`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const hasChoices = item.sizes.length > 1 || Boolean(item.options && item.options.length > 0);
+                              if (hasChoices) {
+                                setDraft(item);
+                              } else {
+                                onAdd({ item, size: item.sizes[0], qty: 1 });
+                              }
+                            }}
+                            className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-wine text-gold-soft shadow-xs ring-1 ring-gold/30 transition-all duration-200 hover:scale-110 hover:bg-wine-deep active:scale-95"
+                          >
+                            <Plus size={13} weight="bold" />
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
-          {groups.length === 0 && (
-            <p className="py-10 text-center text-ink-soft">مفيش نتائج مطابقة للبحث في المنيو.</p>
-          )}
+            ))}
+            {groups.length === 0 && (
+              <p className="py-10 text-center text-cream/60">مفيش نتائج مطابقة للبحث في المنيو.</p>
+            )}
+          </div>
         </div>
       </div>
+
+      {/* موجة سفلية تنقل من المنيو النبيتي إلى السكشن التالي الفاتح */}
+      <WaveBottom className="text-wine-deep bg-cream" />
 
       {draft && <Picker key={draft.id} item={draft} onClose={() => setDraft(null)} onAdd={onAdd} />}
     </section>

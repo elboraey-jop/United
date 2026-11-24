@@ -5,6 +5,11 @@ import Lenis from "lenis";
 
 export function SmoothScroll() {
   useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (!fine) return;
 
@@ -14,6 +19,7 @@ export function SmoothScroll() {
       smoothWheel: true,
       wheelMultiplier: 0.85,
     });
+    lenis.scrollTo(0, { immediate: true });
     (window as unknown as { __unitedLenis?: Lenis }).__unitedLenis = lenis;
 
     let frame = 0;
